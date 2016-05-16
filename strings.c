@@ -10,23 +10,21 @@ char input(char paths[])
 {
     char delim;
 
-    printf("input delim (+, or <space>): ");
+    printf("Input delim (+, or <space>): ");
     scanf("%c%*c",&delim);
 
-    if( delim == ' '){
+    if( delim == ' ') {
         printf("delim is <space>\n");
-    }else
+    }else if( delim != '+' ) {
+         printf ("delim isn't correct. Autoset delim is '+'\n");
+         delim = '+';
+    }
 
-        if( delim != '+' ){
-            printf ("delim isn't correct. Autoset delim is '+'\n");
-            delim = '+';
-        }
-
-    printf("input Windows paths (URL format): ");
+    printf("Input Windows paths (URL format): ");
     fgets(paths,MAXSIZE,stdin);
 
-    printf("delim is %c\n",delim);
-    printf("path string is: %s\n",paths);
+    printf("Delim is %c\n",delim);
+    printf("Path string is: %s\n",paths);
     return delim;
 }
 
@@ -59,7 +57,7 @@ int stok(char paths[], char delim, char *ptr[])
     char *suf = paths;
     int i, j = 1;
     ptr[0] = paths;
-    while((i = schr(suf, delim)) >= 0){
+    while((i = schr(suf, delim)) >= 0) {
         suf[i] = '\0';
         suf = suf + i + 1;
         ptr[j] = suf;
@@ -68,7 +66,7 @@ int stok(char paths[], char delim, char *ptr[])
     return j-1; //OBRATIT' VNIMANIE!!!!!!!
 }
 
-void print_str(char paths[], char *ptr[])   //ФИЛЬТР ПО "\\....." ???
+void printstring(char paths[], char *ptr[])   //ФИЛЬТР ПО "\\....." ???
 {
     int i=(slen(paths))+3;
     while (paths[i] != '\0'){
@@ -81,8 +79,6 @@ void print_str(char paths[], char *ptr[])   //ФИЛЬТР ПО "\\....." ???
 }
 
 
-
-
 /* :::::::::: CHECK FUNCTIONS ::::::::::  */
 // 1. Check of symbols
 
@@ -90,8 +86,8 @@ int checksmbl(char paths[], char *ptr[])
 {
     char nsym[6] = {'<', '>', '?', '*', '|', '"'};
     int i, j;
-    for (i = 0; i <= slen(paths); i++){
-        if( schr(nsym, paths[i]) >=  0 ){
+    for (i = 0; i <= slen(paths); i++) {
+        if (schr(nsym, paths[i]) >=  0) {
             fprintf(stderr, "\nERROR: Found illegal symbol! (<, >, ?, |, *)\n ");
             j = i;
             break;

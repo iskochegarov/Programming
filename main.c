@@ -7,23 +7,28 @@
 
 int main()
 {
-	int length, delim_pos, ptrs;
+	int length, delim_pos, ptrs, chk_result;
 	char paths[MAXSIZE], delim, *ptr[MAXCNT];
-
-   
-	    delim=input(paths);
+//input
+    delim = input(paths);
        
-
 //Length of pahts
-	length=slen(paths);
+	length = slen(paths);
 	printf("String length: %d\n", length);
 
 //Search of delim
-	delim_pos=schr(paths, delim);
-	printf("position of delim: %d\n", delim_pos);
+	delim_pos = schr(paths, delim);
+	printf("Position of delim: %d\n", delim_pos);
 
 //Paths partition
-	ptrs=stok(paths, delim, ptr);
-	printf("quantity of fields: %d\n", ptrs);
+	ptrs = stok(paths, delim, ptr);
+	printf("Quantity of fields: %d\n", ptrs);
+
+//Check symbols
+    chk_result = checksmbl(paths, ptr);
+
+//print test string
+    printstring(paths, ptr);
+    
 return 0;
 }
